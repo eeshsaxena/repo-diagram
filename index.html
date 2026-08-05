@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repo Diagram · see any codebase at a glance</title>
+  <meta name="description" content="Paste a GitHub repo URL and get an instant, beautiful map of the whole codebase. No install, no backend." />
+  <link rel="preconnect" href="https://api.github.com" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <main class="wrap">
+    <header class="hero">
+      <h1><span class="mark">◆</span> Repo Diagram</h1>
+      <p class="tagline">Paste any GitHub repo. See the whole codebase in one picture.</p>
+    </header>
+
+    <form id="repo-form" class="search" autocomplete="off">
+      <input
+        id="repo"
+        type="text"
+        placeholder="facebook/react   or   https://github.com/vercel/next.js"
+        aria-label="GitHub repository"
+        spellcheck="false"
+      />
+      <button id="go" type="submit">Map it →</button>
+    </form>
+    <div class="samples">
+      <span>Try:</span>
+      <button class="chip" data-repo="tj/commander.js">tj/commander.js</button>
+      <button class="chip" data-repo="expressjs/express">expressjs/express</button>
+      <button class="chip" data-repo="pallets/flask">pallets/flask</button>
+    </div>
+
+    <section id="status" class="status" hidden></section>
+
+    <section id="result" class="result" hidden>
+      <div class="repo-head">
+        <div class="repo-title">
+          <a id="repo-link" href="#" target="_blank" rel="noopener"><span id="repo-name">·</span></a>
+          <p id="repo-desc" class="repo-desc"></p>
+        </div>
+        <div class="repo-actions">
+          <button id="download" class="btn-primary">⬇︎ PNG</button>
+        </div>
+      </div>
+
+      <nav id="breadcrumb" class="breadcrumb" aria-label="folder path"></nav>
+
+      <div class="map-frame">
+        <svg id="map" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="codebase map"></svg>
+        <div id="tooltip" class="tooltip" hidden></div>
+      </div>
+
+      <div class="panels">
+        <div class="panel">
+          <h3>Stack detected</h3>
+          <div id="stack" class="chips"></div>
+        </div>
+        <div class="panel">
+          <h3>Languages</h3>
+          <div id="langs" class="langbars"></div>
+        </div>
+        <div class="panel">
+          <h3>At a glance</h3>
+          <div id="glance" class="glance"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Built with the public GitHub API. Everything runs in your browser. No backend, no storage.
+    </footer>
+  </main>
+
+  <canvas id="export-canvas" hidden></canvas>
+  <script src="app.js"></script>
+</body>
+</html>
